@@ -16,11 +16,12 @@ interface BenchmarkFormProps {
   onAddGpu?: (newGpu: string) => void;
   onAddCpu?: (newCpu: string) => void;
   onAddBenchmark?: (newBenchmark: string) => void;
+  onAddUpscaling?: (newUpscaling: string) => void;
   initialData?: BenchmarkResult | null;
 }
 
 export default function BenchmarkForm({
-  benchmarkOptions,
+  benchmarkOptions, 
   gpuOptions,
   cpuOptions,
   resolutionOptions,
@@ -32,6 +33,7 @@ export default function BenchmarkForm({
   onAddGpu,
   onAddCpu,
   onAddBenchmark,
+  onAddUpscaling,
   initialData
 }: BenchmarkFormProps) {
   const [formData, setFormData] = useState<Omit<BenchmarkResult, 'id'>>({
@@ -45,7 +47,8 @@ export default function BenchmarkForm({
     antiAliasing: '',
     result: 0,
     tip: 'Ort. FPS',
-    direction: 1
+    direction: 1,
+    createdAt: new Date().toISOString()
   });
 
   const [showNewGpuInput, setShowNewGpuInput] = useState(false);
@@ -54,9 +57,12 @@ export default function BenchmarkForm({
   const [newCpu, setNewCpu] = useState('');
   const [showNewBenchmarkInput, setShowNewBenchmarkInput] = useState(false);
   const [newBenchmark, setNewBenchmark] = useState('');
+  const [showNewUpscalingInput, setShowNewUpscalingInput] = useState(false);
+  const [newUpscaling, setNewUpscaling] = useState('');
 
   useEffect(() => {
     if (initialData) {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { id, ...rest } = initialData;
       setFormData(rest);
     }
@@ -87,7 +93,8 @@ export default function BenchmarkForm({
         antiAliasing: '',
         result: 0,
         tip: 'Ort. FPS',
-        direction: 1
+        direction: 1,
+        createdAt: new Date().toISOString()
       });
     }
   };
@@ -119,6 +126,15 @@ export default function BenchmarkForm({
     }
   };
 
+  const handleAddUpscaling = () => {
+    if (newUpscaling.trim() && onAddUpscaling) {
+      onAddUpscaling(newUpscaling.trim());
+      setFormData(prev => ({ ...prev, upscaling: newUpscaling.trim() }));
+      setNewUpscaling('');
+      setShowNewUpscalingInput(false);
+    }
+  };
+
   return (
     <div className="bg-white p-6 rounded-lg shadow-lg border border-blue-100">
       <h2 className="text-xl font-semibold mb-4 text-blue-800">
@@ -129,7 +145,7 @@ export default function BenchmarkForm({
           <div className="col-span-1 md:col-span-2">
             <h3 className="text-lg font-medium text-gray-700 mb-2 border-b pb-1">Temel Bilgiler</h3>
           </div>
-          
+        
           <div>
             <label htmlFor="benchmark" className="block text-sm font-medium text-gray-700 mb-1">
               Oyun / Benchmark
@@ -145,7 +161,7 @@ export default function BenchmarkForm({
                   required
                 >
                   <option value="" disabled>Seçiniz</option>
-                  {benchmarkOptions.map((option) => (
+                  {benchmarkOptions.sort((a, b) => a.localeCompare(b)).map((option) => (
                     <option key={option} value={option}>
                       {option}
                     </option>
@@ -226,7 +242,7 @@ export default function BenchmarkForm({
                   required
                 >
                   <option value="" disabled>Seçiniz</option>
-                  {gpuOptions.map((option) => (
+                  {gpuOptions.sort((a, b) => a.localeCompare(b)).map((option) => (
                     <option key={option} value={option}>
                       {option}
                     </option>
@@ -282,7 +298,7 @@ export default function BenchmarkForm({
                   required
                 >
                   <option value="" disabled>Seçiniz</option>
-                  {cpuOptions.map((option) => (
+                  {cpuOptions.sort((a, b) => a.localeCompare(b)).map((option) => (
                     <option key={option} value={option}>
                       {option}
                     </option>
@@ -394,21 +410,56 @@ export default function BenchmarkForm({
             <label htmlFor="upscaling" className="block text-sm font-medium text-gray-700 mb-1">
               Upscaling Teknolojisi
             </label>
-            <select
-              id="upscaling"
-              name="upscaling"
-              className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
-              value={formData.upscaling}
-              onChange={handleChange}
-              required
-            >
-              <option value="" disabled>Seçiniz</option>
-              {upscalingOptions.map((option) => (
-                <option key={option} value={option}>
-                  {option}
-                </option>
-              ))}
-            </select>
+            {!showNewUpscalingInput ? (
+              <div className="flex space-x-2">
+                <select
+                  id="upscaling"
+                  name="upscaling"
+                  className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+                  value={formData.upscaling}
+                  onChange={handleChange}
+                  required
+                >
+                  <option value="" disabled>Seçiniz</option>
+                  {upscalingOptions.sort((a, b) => a.localeCompare(b)).map((option) => (
+                    <option key={option} value={option}>
+                      {option}
+                    </option>
+                  ))}
+                </select>
+                <button
+                  type="button"
+                  onClick={() => setShowNewUpscalingInput(true)}
+                  className="px-3 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500"
+                >
+                  +
+                </button>
+              </div>
+            ) : (
+              <div className="flex space-x-2">
+                <input
+                  type="text"
+                  value={newUpscaling}
+                  onChange={(e) => setNewUpscaling(e.target.value)}
+                  placeholder="Yeni upscaling teknolojisi"
+                  className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+                <button
+                  type="button"
+                  onClick={handleAddUpscaling}
+                  className="px-3 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500"
+                >
+                  Ekle
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setShowNewUpscalingInput(false)}
+                  className="px-3 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-400"
+                >
+                  İptal
+                </button>
+              </div>
+            )}
           </div>
           
           <div>

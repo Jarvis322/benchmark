@@ -1,0 +1,86 @@
+{
+  "app": {
+    "title": "ShiftDelete.Net Benchmark Comparison Tool",
+    "description": "Compare game and application benchmark results"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "noResults": "No results found. Please change filters or add a new benchmark.",
+    "save": "Save",
+    "cancel": "Cancel",
+    "edit": "Edit",
+    "delete": "Delete",
+    "deleteConfirm": "Are you sure you want to delete this benchmark?",
+    "yes": "Yes",
+    "no": "No",
+    "search": "Search...",
+    "clearFilters": "Clear Filters",
+    "actions": "Actions"
+  },
+  "form": {
+    "addNew": "Add New Benchmark",
+    "hideForm": "Hide Form",
+    "benchmark": "Benchmark",
+    "gpu": "GPU",
+    "cpu": "CPU",
+    "resolution": "Resolution",
+    "quality": "Quality",
+    "rayTracing": "Ray Tracing",
+    "upscaling": "Upscaling",
+    "antiAliasing": "Anti-Aliasing",
+    "result": "Result",
+    "tip": "Type",
+    "direction": "Direction",
+    "higherBetter": "Higher is better",
+    "lowerBetter": "Lower is better"
+  },
+  "filter": {
+    "title": "Filters",
+    "apply": "Apply",
+    "reset": "Reset",
+    "selectBenchmark": "Select Benchmark",
+    "selectGPU": "Select GPU",
+    "selectCPU": "Select CPU",
+    "selectResolution": "Select Resolution",
+    "selectQuality": "Select Quality",
+    "selectRayTracing": "Select Ray Tracing",
+    "selectUpscaling": "Select Upscaling",
+    "selectAntiAliasing": "Select Anti-Aliasing"
+  },
+  "chart": {
+    "title": "Benchmark Chart",
+    "gpuBased": "GPU Based",
+    "benchmarkBased": "Benchmark Based",
+    "showStats": "Show Statistics",
+    "hideStats": "Hide Statistics",
+    "stats": {
+      "title": "Benchmark Statistics",
+      "avgResult": "Average Result",
+      "maxResult": "Maximum Result",
+      "minResult": "Minimum Result",
+      "gpuComparison": "GPU Performance Comparison",
+      "benchmarkComparison": "Benchmark Comparison"
+    }
+  },
+  "table": {
+    "benchmark": "Benchmark",
+    "gpu": "GPU",
+    "cpu": "CPU",
+    "resolution": "Resolution",
+    "quality": "Quality",
+    "rayTracing": "Ray Tracing",
+    "upscaling": "Upscaling",
+    "antiAliasing": "Anti-Aliasing",
+    "result": "Result",
+    "date": "Date",
+    "compare": "Compare"
+  },
+  "footer": {
+    "about": "About Us",
+    "contact": "Contact",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Use",
+    "copyright": "© 2023 ShiftDelete.Net. All rights reserved."
+  }
+} 

@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { BenchmarkResult, ComparisonSelection } from '../types';
+import { BenchmarkResult } from '../types';
 
 interface BenchmarkTableProps {
   results: BenchmarkResult[];
@@ -127,6 +127,17 @@ export default function BenchmarkTable({ results, onCompare, onDelete, onEdit }:
                 </span>
               )}
             </th>
+            <th 
+              className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100"
+              onClick={() => handleSort('createdAt')}
+            >
+              Eklenme Tarihi
+              {sortConfig.key === 'createdAt' && (
+                <span className="ml-1">
+                  {sortConfig.direction === 'ascending' ? '↑' : '↓'}
+                </span>
+              )}
+            </th>
             {(onDelete || onEdit) && (
               <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 İşlemler
@@ -181,6 +192,14 @@ export default function BenchmarkTable({ results, onCompare, onDelete, onEdit }:
                 </div>
                 <div className="text-xs text-gray-500">
                   {result.direction === 1 ? 'Yüksek daha iyi' : 'Düşük daha iyi'}
+                </div>
+              </td>
+              <td className="px-4 py-4 whitespace-nowrap">
+                <div className="text-sm text-gray-900">
+                  {new Date(result.createdAt).toLocaleDateString('tr-TR')}
+                </div>
+                <div className="text-xs text-gray-500">
+                  {new Date(result.createdAt).toLocaleTimeString('tr-TR')}
                 </div>
               </td>
               {(onDelete || onEdit) && (

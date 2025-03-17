@@ -1,0 +1,86 @@
+{
+  "app": {
+    "title": "ShiftDelete.Net Benchmark Karşılaştırma Aracı",
+    "description": "Oyun ve uygulama benchmark sonuçlarını karşılaştırın"
+  },
+  "common": {
+    "loading": "Yükleniyor...",
+    "error": "Hata oluştu",
+    "noResults": "Sonuç bulunamadı. Lütfen filtreleri değiştirin veya yeni benchmark ekleyin.",
+    "save": "Kaydet",
+    "cancel": "İptal",
+    "edit": "Düzenle",
+    "delete": "Sil",
+    "deleteConfirm": "Bu benchmark'ı silmek istediğinizden emin misiniz?",
+    "yes": "Evet",
+    "no": "Hayır",
+    "search": "Ara...",
+    "clearFilters": "Filtreleri Temizle",
+    "actions": "İşlemler"
+  },
+  "form": {
+    "addNew": "Yeni Benchmark Ekle",
+    "hideForm": "Formu Gizle",
+    "benchmark": "Benchmark",
+    "gpu": "GPU",
+    "cpu": "CPU",
+    "resolution": "Çözünürlük",
+    "quality": "Kalite",
+    "rayTracing": "Ray Tracing",
+    "upscaling": "Upscaling",
+    "antiAliasing": "Anti-Aliasing",
+    "result": "Sonuç",
+    "tip": "Tip",
+    "direction": "Yön",
+    "higherBetter": "Yüksek daha iyi",
+    "lowerBetter": "Düşük daha iyi"
+  },
+  "filter": {
+    "title": "Filtreler",
+    "apply": "Uygula",
+    "reset": "Sıfırla",
+    "selectBenchmark": "Benchmark Seçin",
+    "selectGPU": "GPU Seçin",
+    "selectCPU": "CPU Seçin",
+    "selectResolution": "Çözünürlük Seçin",
+    "selectQuality": "Kalite Seçin",
+    "selectRayTracing": "Ray Tracing Seçin",
+    "selectUpscaling": "Upscaling Seçin",
+    "selectAntiAliasing": "Anti-Aliasing Seçin"
+  },
+  "chart": {
+    "title": "Benchmark Grafiği",
+    "gpuBased": "GPU Bazlı",
+    "benchmarkBased": "Benchmark Bazlı",
+    "showStats": "İstatistikleri Göster",
+    "hideStats": "İstatistikleri Gizle",
+    "stats": {
+      "title": "Benchmark İstatistikleri",
+      "avgResult": "Ortalama Sonuç",
+      "maxResult": "En Yüksek Sonuç",
+      "minResult": "En Düşük Sonuç",
+      "gpuComparison": "GPU Performans Karşılaştırması",
+      "benchmarkComparison": "Benchmark Karşılaştırması"
+    }
+  },
+  "table": {
+    "benchmark": "Benchmark",
+    "gpu": "GPU",
+    "cpu": "CPU",
+    "resolution": "Çözünürlük",
+    "quality": "Kalite",
+    "rayTracing": "Ray Tracing",
+    "upscaling": "Upscaling",
+    "antiAliasing": "Anti-Aliasing",
+    "result": "Sonuç",
+    "date": "Tarih",
+    "compare": "Karşılaştır"
+  },
+  "footer": {
+    "about": "Hakkımızda",
+    "contact": "İletişim",
+    "privacy": "Gizlilik Politikası",
+    "terms": "Kullanım Şartları",
+    "copyright": "© 2023 ShiftDelete.Net. Tüm hakları saklıdır."
+  }
+} 

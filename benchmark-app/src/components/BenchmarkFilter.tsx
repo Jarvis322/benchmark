@@ -24,7 +24,11 @@ export default function BenchmarkFilter({
     benchmark: '',
     gpu: '',
     cpu: '',
-    resolution: ''
+    resolution: '',
+    quality: '',
+    rayTracing: '',
+    upscaling: '',
+    antiAliasing: ''
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -45,29 +49,33 @@ export default function BenchmarkFilter({
       benchmark: '',
       gpu: '',
       cpu: '',
-      resolution: ''
+      resolution: '',
+      quality: '',
+      rayTracing: '',
+      upscaling: '',
+      antiAliasing: ''
     });
     onClear();
   };
 
   return (
-    <div className="bg-white p-6 rounded-lg shadow-lg border border-blue-100 mb-6">
-      <h2 className="text-xl font-semibold mb-4 text-blue-800">Benchmark Filtrele</h2>
+    <div className="bg-white p-6 rounded-lg shadow-lg border border-blue-100 mb-8">
+      <h2 className="text-xl font-semibold mb-4 text-blue-800">Filtreleme Seçenekleri</h2>
       <form onSubmit={handleSubmit}>
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-4">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
           <div>
-            <label htmlFor="filter-benchmark" className="block text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor="benchmark-filter" className="block text-sm font-medium text-gray-700 mb-1">
               Oyun / Benchmark
             </label>
             <select
-              id="filter-benchmark"
+              id="benchmark-filter"
               name="benchmark"
               className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
               value={filters.benchmark}
               onChange={handleChange}
             >
               <option value="">Tümü</option>
-              {benchmarkOptions.map((option) => (
+              {benchmarkOptions.sort((a, b) => a.localeCompare(b)).map((option) => (
                 <option key={option} value={option}>
                   {option}
                 </option>
@@ -76,18 +84,18 @@ export default function BenchmarkFilter({
           </div>
           
           <div>
-            <label htmlFor="filter-gpu" className="block text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor="gpu-filter" className="block text-sm font-medium text-gray-700 mb-1">
               Ekran Kartı
             </label>
             <select
-              id="filter-gpu"
+              id="gpu-filter"
               name="gpu"
               className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
               value={filters.gpu}
               onChange={handleChange}
             >
               <option value="">Tümü</option>
-              {gpuOptions.map((option) => (
+              {gpuOptions.sort((a, b) => a.localeCompare(b)).map((option) => (
                 <option key={option} value={option}>
                   {option}
                 </option>
@@ -96,18 +104,18 @@ export default function BenchmarkFilter({
           </div>
           
           <div>
-            <label htmlFor="filter-cpu" className="block text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor="cpu-filter" className="block text-sm font-medium text-gray-700 mb-1">
               İşlemci
             </label>
             <select
-              id="filter-cpu"
+              id="cpu-filter"
               name="cpu"
               className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
               value={filters.cpu}
               onChange={handleChange}
             >
               <option value="">Tümü</option>
-              {cpuOptions.map((option) => (
+              {cpuOptions.sort((a, b) => a.localeCompare(b)).map((option) => (
                 <option key={option} value={option}>
                   {option}
                 </option>
@@ -116,18 +124,18 @@ export default function BenchmarkFilter({
           </div>
           
           <div>
-            <label htmlFor="filter-resolution" className="block text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor="resolution-filter" className="block text-sm font-medium text-gray-700 mb-1">
               Çözünürlük
             </label>
             <select
-              id="filter-resolution"
+              id="resolution-filter"
               name="resolution"
               className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
               value={filters.resolution}
               onChange={handleChange}
             >
               <option value="">Tümü</option>
-              {resolutionOptions.map((option) => (
+              {resolutionOptions.sort((a, b) => a.localeCompare(b)).map((option) => (
                 <option key={option} value={option}>
                   {option}
                 </option>
@@ -136,7 +144,7 @@ export default function BenchmarkFilter({
           </div>
         </div>
         
-        <div className="flex justify-end space-x-3">
+        <div className="flex justify-end space-x-3 mt-4">
           <button
             type="button"
             onClick={handleClear}
