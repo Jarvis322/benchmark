@@ -15,7 +15,6 @@ import {
   qualityOptions,
   rayTracingOptions,
   upscalingOptions,
-  upscalingOptionsList,
   antiAliasingOptions,
   addGpuOption,
   addCpuOption,
@@ -154,7 +153,7 @@ export default function Home() {
   };
 
   const handleAddUpscaling = (newUpscaling: string) => {
-    const updatedUpscalingList = addUpscalingOption(newUpscaling);
+    addUpscalingOption(newUpscaling);
     // Upscaling seçenekleri doğrudan data/benchmarks.ts'den geldiği için
     // burada state'e eklememize gerek yok
   };
@@ -201,27 +200,6 @@ export default function Home() {
     
     setFilteredResults(searched);
   };
-
-  // Benzersiz değerleri alfabetik olarak sırala
-  const getUniqueValues = (data: BenchmarkResult[], key: keyof BenchmarkResult) => {
-    const values = new Set<string>();
-    data.forEach(item => {
-      if (item[key]) {
-        values.add(item[key] as string);
-      }
-    });
-    return Array.from(values).sort((a, b) => a.localeCompare(b));
-  };
-
-  // Filtreleme seçeneklerini hazırla
-  const benchmarks = getUniqueValues(filteredResults, 'benchmark');
-  const gpus = getUniqueValues(filteredResults, 'gpu');
-  const cpus = getUniqueValues(filteredResults, 'cpu');
-  const resolutions = getUniqueValues(filteredResults, 'resolution');
-  const qualities = getUniqueValues(filteredResults, 'quality');
-  const rayTracings = getUniqueValues(filteredResults, 'rayTracing');
-  const upscalings = getUniqueValues(filteredResults, 'upscaling');
-  const antiAliasings = getUniqueValues(filteredResults, 'antiAliasing');
 
   return (
     <main className="container mx-auto px-4 py-8">

@@ -25,11 +25,17 @@ ChartJS.register(
 
 interface BenchmarkChartProps {
   results: BenchmarkResult[];
+  selectedItems?: string[];
 }
 
-export default function BenchmarkChart({ results }: BenchmarkChartProps) {
+export default function BenchmarkChart({ results, selectedItems }: BenchmarkChartProps) {
   const [chartType, setChartType] = useState<'gpu' | 'benchmark'>('gpu');
   const [showStats, setShowStats] = useState<boolean>(false);
+  
+  // Eğer selectedItems varsa, sadece seçili öğeleri göster
+  const filteredResults = selectedItems && selectedItems.length > 0
+    ? results.filter(result => selectedItems.includes(result.id))
+    : results;
   
   // İstatistikler
   const [stats, setStats] = useState<{
@@ -76,17 +82,17 @@ export default function BenchmarkChart({ results }: BenchmarkChartProps) {
   
   // İstatistikleri hesapla
   useEffect(() => {
-    if (results.length === 0) return;
+    if (filteredResults.length === 0) return;
     
     // Ortalama, maksimum ve minimum sonuçlar
-    const sum = results.reduce((acc, curr) => acc + curr.result, 0);
-    const avg = sum / results.length;
-    const max = Math.max(...results.map(r => r.result));
-    const min = Math.min(...results.map(r => r.result));
+    const sum = filteredResults.reduce((acc, curr) => acc + curr.result, 0);
+    const avg = sum / filteredResults.length;
+    const max = Math.max(...filteredResults.map(r => r.result));
+    const min = Math.min(...filteredResults.map(r => r.result));
     
     // GPU bazlı karşılaştırma
     const gpuMap = new Map<string, { sum: number; count: number }>();
-    results.forEach(r => {
+    filteredResults.forEach(r => {
       if (!gpuMap.has(r.gpu)) {
         gpuMap.set(r.gpu, { sum: r.result, count: 1 });
       } else {
@@ -102,7 +108,7 @@ export default function BenchmarkChart({ results }: BenchmarkChartProps) {
     
     // Benchmark bazlı karşılaştırma
     const benchmarkMap = new Map<string, { sum: number; count: number }>();
-    results.forEach(r => {
+    filteredResults.forEach(r => {
       if (!benchmarkMap.has(r.benchmark)) {
         benchmarkMap.set(r.benchmark, { sum: r.result, count: 1 });
       } else {
@@ -123,22 +129,22 @@ export default function BenchmarkChart({ results }: BenchmarkChartProps) {
       gpuComparison,
       benchmarkComparison
     });
-  }, [results]);
+  }, [filteredResults]);
 
   // Grafik verilerini hazırla
   const chartData = {
     labels: chartType === 'gpu' 
-      ? results.map(result => `${result.gpu} (${result.benchmark})`)
-      : results.map(result => `${result.benchmark} (${result.gpu})`),
+      ? filteredResults.map(result => `${result.gpu} (${result.benchmark})`)
+      : filteredResults.map(result => `${result.benchmark} (${result.gpu})`),
     datasets: [
       {
         label: 'Sonuç',
-        data: results.map(result => result.result),
-        backgroundColor: results.map(result => {
+        data: filteredResults.map(result => result.result),
+        backgroundColor: filteredResults.map(result => {
           const colors = getGpuColor(result.gpu);
           return colors.backgroundColor;
         }),
-        borderColor: results.map(result => {
+        borderColor: filteredResults.map(result => {
           const colors = getGpuColor(result.gpu);
           return colors.borderColor;
         }),
@@ -162,7 +168,7 @@ export default function BenchmarkChart({ results }: BenchmarkChartProps) {
         callbacks: {
           afterLabel: function(context) {
             const index = context.dataIndex;
-            const result = results[index];
+            const result = filteredResults[index];
             return [
               `CPU: ${result.cpu}`,
               `Çözünürlük: ${result.resolution}`,

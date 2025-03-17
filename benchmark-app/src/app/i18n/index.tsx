@@ -71,11 +71,11 @@ export const I18nProvider = ({ children }: I18nProviderProps) => {
   // Çeviri fonksiyonu
   const t = (key: string) => {
     const keys = key.split('.');
-    let currentValue: any = resources[language as keyof typeof resources];
+    let currentValue: Record<string, unknown> = resources[language as keyof typeof resources];
     
     for (const k of keys) {
       if (currentValue && typeof currentValue === 'object' && k in currentValue) {
-        currentValue = currentValue[k as keyof typeof currentValue];
+        currentValue = currentValue[k] as Record<string, unknown>;
       } else {
         return key;
       }
